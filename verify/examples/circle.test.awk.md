@@ -25,15 +25,19 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :warning: examples/failed_to_bundle.hpp
+# :heavy_check_mark: examples/circle.test.awk
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#bfebe34154a0dfd9fc7b447fc9ed74e9">examples</a>
-* <a href="{{ site.github.repository_url }}/blob/master/examples/failed_to_bundle.hpp">View this file on GitHub</a>
-    - Last commit date: 2019-12-17 15:26:37+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/examples/circle.test.awk">View this file on GitHub</a>
+    - Last commit date: 2020-01-24 05:02:31+09:00
 
 
+
+
+## Depends on
+
+* :heavy_check_mark: <a href="../../library/examples/circle.awk.html">examples/circle.awk</a>
 
 
 ## Code
@@ -41,10 +45,12 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define HOGE
-#ifndef HOGE
-#include "examples/failed_to_bundle.hpp"  // this is a self-include at a glance
-#endif
+# verify-helper: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_4_B
+# verify-helper: ERROR 1e-5
+@include "examples/circle.awk"
+{
+    print get_area($1), get_circumference($1);
+}
 
 ```
 {% endraw %}
@@ -52,12 +58,13 @@ layout: default
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 342, in write_contents
-    bundler.update(self.file_class.file_path)
-  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/bundle.py", line 178, in update
-    raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
-onlinejudge_verify.bundle.BundleError: examples/failed_to_bundle.hpp: line 3: unable to process #include in #if / #ifdef / #ifndef other than include guards
+#line 1 "examples/circle.test.awk"
+# verify-helper: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_4_B
+# verify-helper: ERROR 1e-5
+@include "examples/circle.awk"
+{
+    print get_area($1), get_circumference($1);
+}
 
 ```
 {% endraw %}
